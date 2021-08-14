@@ -7,6 +7,10 @@ using TMPro;
 
 public class PlayFabManager : MonoBehaviour
 {
+    [Header("Pannel")
+    public GameObject loginPannel;
+    public GameObject registerPannel;
+    
     [Header("InputFields")]
     public TMP_InputField registerEmailIF;
     public TMP_InputField registerUsernameIF;
@@ -15,22 +19,70 @@ public class PlayFabManager : MonoBehaviour
     public TMP_InputField loginPasswordIF;
 
     [Header("Button")]
-    public TextMeshProUGUI registerButton;
-    public TextMeshProUGUI registerCreateButton;
-    public TextMeshProUGUI registerReturnButton;
-    public TextMeshProUGUI loginButton;
-    public TextMeshProUGUI loginQuitButton;
+    public TextMeshProUGUI registerButton; // good
+    public TextMeshProUGUI registerCreateButton; 
+    public TextMeshProUGUI registerReturnButton; // good
+    public TextMeshProUGUI loginButton; 
+    public TextMeshProUGUI loginQuitButton; // good
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        
+        DontDestroyOnLoad;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
+    
+    // Going from login to register pannel
+    public void OnClickRegisterButton()
+    {
+    
+        loginPannel.SetActive(false);
+        registerPannel.SetActive(true);
+        
+    }
+    
+    // Going from register to login pannel
+    public void OnClickReturnButton()
+    {
+    
+        loginPannel.SetActive(true);
+        registerPannel.SetActive(false);
+        
+    }
+    
+    public void OnClickQuit()
+    {
+        Application.Quit();
+    }
+    
+    public void OnClickCreate()
+    {
+        RegisterPlayFabUserRequest request = new RegisterPlayFabUserRequest
+        {
+            Username = registerUsernameIF.text,
+            Email = registerEmailIF.text,
+            Password = registerPasswordIF.text,
+            RequireBothUsernameAndEmail = true,
+        };
+        
+        PlayFabClientAPI.RegisterPlayFabUser(request, OnRegister, OnError);
+    
+    }
+    
+    public void OnRegister()
+    {
+    
+        Debug.Log("Registered");
+        
+    }
+    
+    public void OnError()
+    {
+    
+        Debug.Log("Error");
+    }
+    
 }
