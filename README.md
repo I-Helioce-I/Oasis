@@ -1,4 +1,4 @@
-- Taiyo - 
+Taiyo 
 
 By this vidéo game project, I am working on different aspect of game design.
 The goal is to create a small Online RPG, and by this working in a first place on the networking using PlayFab Azure and Photon.
