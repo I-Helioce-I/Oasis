@@ -10,6 +10,7 @@ public class PlayFabManager : MonoBehaviour
     [Header("Pannel")
     public GameObject loginPannel;
     public GameObject registerPannel;
+    public GameObject 
     
     [Header("InputFields")]
     public TMP_InputField registerEmailIF;
