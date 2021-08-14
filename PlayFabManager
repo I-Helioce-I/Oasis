@@ -53,11 +53,13 @@ public class PlayFabManager : MonoBehaviour
         
     }
     
+    // Quit the game from the login pannel
     public void OnClickQuit()
     {
         Application.Quit();
     }
     
+    // Create the Playfab account 
     public void OnClickCreate()
     {
         RegisterPlayFabUserRequest request = new RegisterPlayFabUserRequest
@@ -77,6 +79,27 @@ public class PlayFabManager : MonoBehaviour
     
         Debug.Log("Registered");
         
+    }
+    
+    public void OnClickLogin()
+    {
+        LoginWithPlayFabRequest request = new LoginWithPlayFabRequest
+        {
+            Username = loginUsernameIF.text,
+            Password = loginPasswordIF.text
+            
+        };
+        
+        PlayFabClientAPI.LoginWithPlayFab(request, OnLogin, OnError);
+        
+    }
+    
+    public void OnLogin()
+    {
+        
+    
+    
+    
     }
     
     public void OnError()
