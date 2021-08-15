@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using TMPro;
+using PlayFab.ClientModels;
 
 
 public class PlayFabManager : MonoBehaviour
 {
-    [Header("Pannel")
+    public static PlayFabManager pFM;
+
+    [Header("Pannel")]
     public GameObject loginPannel;
     public GameObject registerPannel;
-    public GameObject 
-    
+    public GameObject playPannel;
+
     [Header("InputFields")]
     public TMP_InputField registerEmailIF;
     public TMP_InputField registerUsernameIF;
@@ -20,46 +23,67 @@ public class PlayFabManager : MonoBehaviour
     public TMP_InputField loginPasswordIF;
 
     [Header("Button")]
-    public TextMeshProUGUI registerButton; // good
-    public TextMeshProUGUI registerCreateButton; 
-    public TextMeshProUGUI registerReturnButton; // good
-    public TextMeshProUGUI loginButton; 
-    public TextMeshProUGUI loginQuitButton; // good
+    public GameObject registerButton; // good
+    public GameObject registerCreateButton;
+    public GameObject registerReturnButton; // good
+    public GameObject loginButton;
+    public GameObject loginQuitButton; // good
 
-    void Start()
+    public void OnEnable()
     {
-        DontDestroyOnLoad;
+        if (PlayFabManager.pFM == null)
+        {
+            pFM = this;
+        }
+        else
+        {
+            if (PlayFabManager.pFM != null)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        DontDestroyOnLoad(this.gameObject);
     }
-
-    void Update()
+    public void Start()
     {
-        
+
+        //Note: Setting title Id here can be skipped if you have set the value in Editor Extensions already.
+        if (string.IsNullOrEmpty(PlayFabSettings.TitleId))
+        {
+            PlayFabSettings.TitleId = "6C5D8"; // Please change this value to your own titleId from PlayFab Game Manager
+        }
+
     }
     
+    void Update()
+    {
+
+    }
+
     // Going from login to register pannel
     public void OnClickRegisterButton()
     {
-    
+
         loginPannel.SetActive(false);
         registerPannel.SetActive(true);
-        
+
     }
-    
+
     // Going from register to login pannel
     public void OnClickReturnButton()
     {
-    
+
         loginPannel.SetActive(true);
         registerPannel.SetActive(false);
-        
+
     }
-    
+
     // Quit the game from the login pannel
     public void OnClickQuit()
     {
         Application.Quit();
     }
-    
+
     // Create the Playfab account 
     public void OnClickCreate()
     {
@@ -70,43 +94,40 @@ public class PlayFabManager : MonoBehaviour
             Password = registerPasswordIF.text,
             RequireBothUsernameAndEmail = true,
         };
-        
+
         PlayFabClientAPI.RegisterPlayFabUser(request, OnRegister, OnError);
-    
+
     }
-    
-    public void OnRegister()
+
+    public void OnRegister(RegisterPlayFabUserResult result)
     {
-    
-        Debug.Log("Registered");
-        
+
+        Debug.Log(result);
+
     }
-    
+
     public void OnClickLogin()
     {
         LoginWithPlayFabRequest request = new LoginWithPlayFabRequest
         {
             Username = loginUsernameIF.text,
             Password = loginPasswordIF.text
-            
+
         };
-        
+
         PlayFabClientAPI.LoginWithPlayFab(request, OnLogin, OnError);
-        
+
     }
-    
-    public void OnLogin()
+
+    public void OnLogin(LoginResult result)
     {
-        
-    
-    
-    
+        Debug.Log(result.);
     }
-    
-    public void OnError()
+
+    public void OnError(PlayFabError error)
     {
-    
-        Debug.Log("Error");
+
+        Debug.Log(error);
     }
-    
+
 }
