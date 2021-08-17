@@ -1,1 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using PlayFab;
+using TMPro;
+using PlayFab.ClientModels;
 
+
+public class PlayerM : MonoBehaviour
+{
+    
+    public void Start()
+    {
+
+       
+    }
+    
+    void Update()
+    {
+
+    }
+
+}
