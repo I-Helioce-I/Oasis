@@ -24,7 +24,24 @@ public class NetworkController : MonoBehaviour
 
     }
     
-    void 
+    public void CreateRoom()
+    {
+    
+    
+    }
+    
+    public void override OnJoinedRoom()
+    {
+    
+    
+    }
+    
+    public void OnJoinedRoomFailed()
+    {
+    
+    
+    
+    }
 
 }
 
